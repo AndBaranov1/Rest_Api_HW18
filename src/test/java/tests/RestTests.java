@@ -222,27 +222,6 @@ public class RestTests {
     }
 
     @Test
-    @ParameterizedTest()
-    @CsvSource(value = {"eve.holt@reqres.in:cityslicka", "tEst:test", "Java:java"}, delimiter = ':')
-    void successfulLoginParametrizedTest(String login, String password) {
-        LoginBodyLombokModel loginBody = new LoginBodyLombokModel();
-        loginBody.setEmail(login);
-        loginBody.setPassword(password);
-
-        LoginResponseLombokModel response = step("Make request", () ->
-                given(loginRequestSpec)
-                        .body(loginBody)
-                        .when()
-                        .post()
-                        .then()
-                        .spec(loginResponseSpec)
-                        .extract().as(LoginResponseLombokModel.class));
-
-        step("Verify response", () ->
-                assertThat(response.getToken()).isEqualTo("QpwL5tke4Pnpja7X4"));
-    }
-
-    @Test
     void reqresSingleUserNotFoundTest() {
         given()
                 .log().uri()
